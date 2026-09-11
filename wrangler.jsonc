@@ -11,7 +11,7 @@
     {
       "binding": "DB",
       "database_name": "smm-api-center-db",
-      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+      "database_id": "1b10a468-8ce7-421b-afde-e7cfe9c125f3"
     }
   ],
   "triggers": {
