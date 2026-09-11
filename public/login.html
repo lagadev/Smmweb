@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log in — SMM API Center</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css?v=9">
+</head>
+<body>
+
+<div class="auth-shell">
+  <div class="auth-visual">
+    <div class="auth-visual-content">
+      <div class="mark">SM</div>
+      <h2>Welcome back — your dashboard is right where you left it.</h2>
+      <p>Check your order history, top up your wallet, or fire off a bulk order in seconds.</p>
+      <div class="auth-visual-stats">
+        <div><strong>10+</strong><span>Platforms supported</span></div>
+        <div><strong>24/7</strong><span>Automated delivery</span></div>
+        <div><strong>&lt;1m</strong><span>Average start time</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-form-side">
+    <div class="auth-card">
+      <h1>Welcome back</h1>
+      <p class="sub">Log in to continue to your dashboard.</p>
+
+      <div class="auth-alert" id="auth-alert"></div>
+
+      <form id="login-form">
+        <div class="field-group">
+          <div class="field-group-label"><div class="fg-icon"><i class="fa-solid fa-circle-user"></i></div><span>Username or email</span></div>
+          <input class="field" id="login-identifier" name="identifier" placeholder="e.g. tamim121" autocomplete="username" required>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label"><div class="fg-icon"><i class="fa-solid fa-lock"></i></div><span>Password</span></div>
+          <input class="field" id="login-password" name="password" type="password" placeholder="Your password" autocomplete="current-password" required>
+        </div>
+
+        <button type="submit" class="btn btn-gradient btn-block" id="login-submit">
+          <span class="button-text">Log in</span>
+          <div class="spinner hidden"></div>
+        </button>
+      </form>
+
+      <div class="auth-switch">Don't have an account? <a href="register.html">Sign up</a></div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/auth.js?v=9"></script>
+</body>
+</html>

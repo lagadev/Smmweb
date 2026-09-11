@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — SMM API Center</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css?v=9">
+</head>
+<body>
+
+<div class="dash-overlay" id="dash-overlay" onclick="closeDrawer()"></div>
+
+<div class="dash-shell">
+  <!-- ===== Sidebar / mobile drawer ===== -->
+  <aside class="dash-sidebar" id="dash-sidebar">
+    <button class="dash-sidebar-close" onclick="closeDrawer()"><i class="fa-solid fa-xmark"></i></button>
+
+    <div class="dash-profile-card">
+      <div class="dash-avatar" id="dash-avatar">U</div>
+      <div>
+        <div class="name" id="dash-username">username</div>
+        <div class="verified"><i class="fa-solid fa-circle-check"></i> Verified User</div>
+      </div>
+    </div>
+
+    <nav class="dash-nav">
+      <button class="dash-nav-item active" data-view="new-order"><span class="icon-wrap"><i class="fa-solid fa-cart-shopping"></i></span> New order</button>
+      <button class="dash-nav-item" data-view="bulk-order"><span class="icon-wrap"><i class="fa-solid fa-list-ol"></i></span> Bulk Order</button>
+      <button class="dash-nav-item" data-view="orders-history"><span class="icon-wrap"><i class="fa-solid fa-clock-rotate-left"></i></span> Orders History</button>
+      <button class="dash-nav-item" data-view="services"><span class="icon-wrap"><i class="fa-solid fa-server"></i></span> Services</button>
+      <button class="dash-nav-item" data-view="add-funds"><span class="icon-wrap"><i class="fa-solid fa-wallet"></i></span> Add funds</button>
+      <button class="dash-nav-item" data-view="api"><span class="icon-wrap"><i class="fa-solid fa-code"></i></span> API</button>
+      <button class="dash-nav-item logout" id="logout-btn"><span class="icon-wrap"><i class="fa-solid fa-power-off"></i></span> Logout</button>
+    </nav>
+  </aside>
+
+  <!-- ===== Main ===== -->
+  <div class="dash-main">
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="dash-menu-toggle" onclick="openDrawer()"><i class="fa-solid fa-bars"></i></button>
+        <div class="dash-topbar-title" id="view-title">New Order</div>
+      </div>
+      <div class="dash-balance-pill"><i class="fa-solid fa-wallet"></i> <span id="topbar-currency">৳</span><span id="topbar-balance">0.00</span></div>
+    </div>
+
+    <div class="dash-content">
+
+      <!-- ===== New Order ===== -->
+      <section class="dash-view" id="view-new-order">
+        <div class="stats-grid">
+          <div class="stat-item"><div class="icon"><i class="fa-solid fa-bag-shopping"></i></div><div class="value" id="stat-orders">0</div><div class="label">Total Order</div></div>
+          <div class="stat-item"><div class="icon"><i class="fa-solid fa-arrow-up"></i></div><div class="value" id="stat-spent">0</div><div class="label">Total Spend</div></div>
+          <div class="stat-item"><div class="icon"><i class="fa-solid fa-arrow-down"></i></div><div class="value" id="stat-earned">0</div><div class="label">Total Earn</div></div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">New Order</h3>
+          <p class="card-sub">Pick a platform, choose a category and service, and confirm.</p>
+
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="service-search" placeholder="Search a service directly">
+          </div>
+
+          <div class="order-steps">
+            <div>
+              <div class="step-label">Platform</div>
+              <div class="platform-grid" id="platform-grid"></div>
+            </div>
+            <div>
+              <div class="step-label">Category</div>
+              <div class="dd" id="category-dd">
+                <button type="button" class="dd-header" id="category-dd-header" disabled>
+                  <span class="dd-header-content"><span class="dd-placeholder">Select a platform first</span></span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="dd-list hidden" id="category-dd-list"></div>
+              </div>
+            </div>
+            <div>
+              <div class="step-label">Service</div>
+              <div class="dd" id="service-dd">
+                <button type="button" class="dd-header" id="service-dd-header" disabled>
+                  <span class="dd-header-content"><span class="dd-placeholder">Select a category first</span></span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="dd-list hidden" id="service-dd-list"></div>
+              </div>
+            </div>
+            <div><div class="step-label">Link</div><input class="field" id="order-link" type="url" placeholder="https://t.me/yourchannel or profile URL"></div>
+            <div>
+              <div class="step-label">Quantity</div>
+              <input class="field" id="order-qty" type="number" placeholder="e.g. 1000" inputmode="numeric">
+              <div class="field-hint" id="qty-hint">Min: — · Max: —</div>
+            </div>
+            <div><div class="step-label">Average time</div><input class="field field-readonly" id="order-avgtime" readonly value="—"></div>
+            <div><div class="step-label">Charge</div><input class="field field-readonly" id="order-charge-field" readonly value=""></div>
+            <button class="btn-submit" id="confirm-order-button" disabled>
+              <span class="button-text">Submit</span>
+              <div class="spinner hidden"></div>
+            </button>
+          </div>
+        </div>
+
+        <div class="service-detail-card hidden" id="service-detail-card">
+          <div class="sdc-header">
+            <div class="sdc-badge" id="sdc-id">#100001</div>
+            <div class="sdc-title" id="sdc-title">Service name</div>
+          </div>
+          <div class="sdc-body">
+            <div class="sdc-row"><span>Link:</span><strong id="sdc-link-type">—</strong></div>
+            <div class="sdc-row"><span>Start:</span><strong id="sdc-start">—</strong></div>
+            <div class="sdc-row"><span>Speed:</span><strong id="sdc-speed">—</strong></div>
+            <div class="sdc-row"><span>Refill:</span><strong id="sdc-refill">—</strong></div>
+            <div class="sdc-row" id="sdc-desc-row"><span>Note:</span><strong id="sdc-desc">—</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Bulk Order ===== -->
+      <section class="dash-view hidden" id="view-bulk-order">
+        <div class="card">
+          <h3 class="card-title">Bulk Order</h3>
+          <p class="card-sub">One order per line, formatted as <code>service,link,quantity</code>. Mix as many different services as you like — up to 100 lines.</p>
+          <textarea class="field" id="bulk-lines" rows="8" placeholder="100001,https://t.me/channel1,1000&#10;100002,https://instagram.com/user2,500"></textarea>
+          <button class="btn-submit" id="bulk-submit-button" style="margin-top:14px;">
+            <span class="button-text">Submit Bulk Order</span>
+            <div class="spinner hidden"></div>
+          </button>
+        </div>
+        <div class="card hidden" id="bulk-results-card">
+          <h3 class="card-title">Results</h3>
+          <div id="bulk-results"></div>
+        </div>
+      </section>
+
+      <!-- ===== Orders History ===== -->
+      <section class="dash-view hidden" id="view-orders-history">
+        <div class="card">
+          <h3 class="card-title">Orders History</h3>
+          <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="order-search-input" placeholder="Search order ID or service"></div>
+          <div class="pill-row" id="order-status-filter">
+            <button class="pill active" data-status="all">All</button>
+            <button class="pill" data-status="Pending">Pending</button>
+            <button class="pill" data-status="Processing">In Progress</button>
+            <button class="pill" data-status="Completed">Completed</button>
+          </div>
+          <div id="orders-history"></div>
+        </div>
+      </section>
+
+      <!-- ===== Services (catalog) ===== -->
+      <section class="dash-view hidden" id="view-services">
+        <div class="card">
+          <h3 class="card-title">Services</h3>
+          <p class="card-sub">Browse the full catalog with live pricing. Use "New order" to actually place one.</p>
+          <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="catalog-search" placeholder="Search by name or ID"></div>
+          <div id="catalog-list"></div>
+        </div>
+      </section>
+
+      <!-- ===== Add Funds ===== -->
+      <section class="dash-view hidden" id="view-add-funds">
+        <div class="card">
+          <div class="amount-hero">
+            <div class="amount-hero-label">How much would you like to add?</div>
+            <div class="amount-hero-input-wrap">
+              <span class="amount-hero-sym" id="funds-currency-sym">৳</span>
+              <input class="amount-hero-input" id="funds-amount-input" type="number" inputmode="decimal" placeholder="0">
+            </div>
+            <div class="amount-chip-row" id="funds-amount-chips"></div>
+          </div>
+          <button class="btn-submit" id="funds-pay-button" disabled>
+            <span class="button-text"><i class="fa-solid fa-lock"></i> Pay securely</span>
+            <div class="spinner hidden"></div>
+          </button>
+          <div class="gateway-note"><i class="fa-solid fa-shield-halved"></i> You'll be redirected to our secure payment gateway to complete the payment. Your balance updates automatically as soon as it's confirmed.</div>
+        </div>
+        <div class="card">
+          <h3 class="card-title">My Deposit Requests</h3>
+          <div id="deposit-requests-list"></div>
+        </div>
+      </section>
+
+      <!-- ===== API ===== -->
+      <section class="dash-view hidden" id="view-api">
+        <div class="token-card">
+          <h3 class="card-title">API Access</h3>
+          <p class="card-sub">Place orders programmatically using your personal key.</p>
+          <div class="token-row">
+            <code id="api-token-display">••••••••••••••••••••••••</code>
+            <div class="token-actions">
+              <button class="btn btn-sm btn-ghost" id="copy-token-btn" title="Copy"><i class="fa-solid fa-copy"></i></button>
+              <button class="btn btn-sm btn-ghost" id="regen-token-btn" title="Regenerate"><i class="fa-solid fa-rotate"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="docs-content"></div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/dashboard.js?v=9"></script>
+</body>
+</html>

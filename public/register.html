@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create your account — SMM API Center</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css?v=9">
+</head>
+<body>
+
+<div class="auth-shell">
+  <div class="auth-visual">
+    <div class="auth-visual-content">
+      <div class="mark">SM</div>
+      <h2>Join thousands of resellers growing faster every day.</h2>
+      <p>One account gives you guided ordering, bulk orders, instant top-ups through a secure payment gateway, and a full reseller API.</p>
+      <div class="auth-visual-stats">
+        <div><strong>10+</strong><span>Platforms supported</span></div>
+        <div><strong>24/7</strong><span>Automated delivery</span></div>
+        <div><strong>&lt;1m</strong><span>Average start time</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-form-side">
+    <div class="auth-card">
+      <h1>Create a new account</h1>
+      <p class="sub">Fill in your details below to get started.</p>
+
+      <div class="auth-alert" id="auth-alert"></div>
+
+      <form id="register-form">
+        <div class="field-group">
+          <div class="field-group-label"><div class="fg-icon"><i class="fa-solid fa-circle-user"></i></div><span>Username</span></div>
+          <input class="field" id="reg-username" name="username" placeholder="e.g. tamim121" autocomplete="username" required>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label"><div class="fg-icon"><i class="fa-solid fa-user"></i></div><span>Name</span></div>
+          <input class="field" id="reg-name" name="name" placeholder="e.g. Md Al Amin" autocomplete="name" required>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label"><div class="fg-icon"><i class="fa-solid fa-envelope"></i></div><span>Email</span></div>
+          <input class="field" id="reg-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label"><div class="fg-icon"><i class="fa-solid fa-lock"></i></div><span>Password</span></div>
+          <input class="field" id="reg-password" name="password" type="password" placeholder="At least 6 characters" autocomplete="new-password" required>
+        </div>
+        <div class="field-group">
+          <div class="field-group-label"><div class="fg-icon"><i class="fa-solid fa-shield-halved"></i></div><span>Confirm password</span></div>
+          <input class="field" id="reg-confirm" name="confirm_password" type="password" placeholder="Re-enter your password" autocomplete="new-password" required>
+          <div class="field-error" id="confirm-error">Passwords do not match.</div>
+        </div>
+
+        <label class="check-row">
+          <input type="checkbox" id="reg-agree" required>
+          <span>I have read and agreed with <a href="#" onclick="alert('Standard Terms of Service apply.'); return false;">Terms of service</a></span>
+        </label>
+
+        <button type="submit" class="btn btn-gradient btn-block" id="register-submit">
+          <span class="button-text">Sign up</span>
+          <div class="spinner hidden"></div>
+        </button>
+      </form>
+
+      <div class="auth-switch">Already have an account? <a href="login.html">Log in</a></div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/auth.js?v=9"></script>
+</body>
+</html>
